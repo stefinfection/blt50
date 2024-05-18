@@ -3,8 +3,9 @@
 MIN=$1
 MAX=$2
 TUMOR_VCF=$3
-DEST_DIR=$4
-OUT_VCF="af_${MIN}_${MAX}.hd_med.COLO829.Ill.1mb.final.no_inherited.no_svs.vcf"
+OUT_VCF_POSTFIX=$4
+
+OUT_VCF="af_${MIN}_${MAX}${OUT_VCF_POSTFIX}"
 
 touch $OUT_VCF
 

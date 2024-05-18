@@ -2,6 +2,7 @@
 # Stephanie Georges May2024 for Marth Lab
 
 
+BLT50_TYPE=500x
 BLT50_VCF=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/rufus_runs/blt50_1mb_500x/SMHTCOLO829BLT50-X-X-M45-A001-dac-SMAARNRVZGBE-insilico500X_GRCh38.FINAL.no_inherited.no_svs.hd.vcf.gz
 FULL_COUNTS_OUTPUT="binned_intersect_counts.txt"
 FULL_TUMOR_VCF=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/rufus_runs/1mb_smaht_merged_v2/hd_med.COLO829.Ill.1mb.final.no_inherited.no_svs.vcf.gz
@@ -17,4 +18,5 @@ bash ${SCRIPTS_PATH}get_binned_full_tumor_counts.sh $ISEC_DIR_PATH $FULL_TUMOR_V
 echo "Generated binned_intersect_counts.txt"
 
 # Get counts of binned unique BLT50 variants. These are variants not found in the full tumor run, stratified into 0.1% bins.
- 
+bash ${SCRIPTS_PATH}get_binned_uniq_counts.sh $ISEC_DIR_PATH $SCRIPTS_PATH $BLT50_TYPE
+echo "Generated binned_blt50_${BLT50_TYPE}_uniq_counts.txt in full_overlaps"
