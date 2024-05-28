@@ -2,12 +2,22 @@
 # Stephanie Georges May2024 for Marth Lab
 
 
-BLT50_TYPE=500x
-BLT50_VCF=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/rufus_runs/blt50_1mb_500x/SMHTCOLO829BLT50-X-X-M45-A001-dac-SMAARNRVZGBE-insilico500X_GRCh38.FINAL.no_inherited.no_svs.hd.vcf.gz
+BLT50_TYPE=$1
+BLT50_VCF=$2
+FILTER_TYPE=$3
+
 FULL_COUNTS_OUTPUT="binned_intersect_counts.txt"
 FULL_TUMOR_VCF=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/rufus_runs/1mb_smaht_merged_v2/hd_med.COLO829.Ill.1mb.final.no_inherited.no_svs.vcf.gz
 ISEC_DIR_PATH=$(pwd)/
 SCRIPTS_PATH=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/intersections/scripts/
+
+if [[ $FILTER_TYPE == "indel" ]]; then
+    FULL_TUMOR_VCF=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/rufus_runs/1mb_smaht_merged_v2/indels.hd_med.COLO829.Ill.1mb.final.no_inherited.no_svs.vcf.gz
+    echo "Doing indel intersections"
+elif [[ $FILTER_TYPE == "snv" ]]; then
+    FULL_TUMOR_VCF=/scratch/ucgd/lustre-labs/marth/scratch/u0746015/COLO829/rufus_runs/1mb_smaht_merged_v2/snvs.hd_med.COLO829.Ill.1mb.final.no_inherited.no_svs.vcf.gz
+    echo "Doing snv intersections"
+fi
 
 # Perform full call set intersections
 bash ${SCRIPTS_PATH}intersect_full_set.sh $BLT50_VCF $FULL_TUMOR_VCF
