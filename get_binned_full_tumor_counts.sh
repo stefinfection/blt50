@@ -8,7 +8,10 @@ FULL_TUMOR_VCF=$2
 BLT50_VCF=$3 
 COUNTS_OUT=$4
 SCRIPTS_PATH=$5
+PARENT_DIR=$6
+
 SOURCE_DIR="${ISEC_DIR_PATH}af_filtered_full_tumor_vcfs/"
+COMBO_OUT="${PARENT_DIR}all_blt50_overlapping_counts.txt"
 
 # Filter full tumor vcf for intersections
 mkdir $SOURCE_DIR
@@ -68,7 +71,9 @@ ranges=(
 "90-100%"
 )
 
-echo -e "range\tFull-Tumor-Unique\tOverlap\tPercentage" > $COUNTS_OUT
+SAMPLE=$(basename "$ISEC_DIR_PATH")
+
+echo -e "Sample\trange\tFull-Tumor-Unique\tOverlap\tPercentage" > $COUNTS_OUT
 
 n=${#dirz[@]}
 for (( i = 0; i < n; i++ ))
@@ -80,5 +85,6 @@ do
     sum=$(($tumor + $overlap))
     perc=$(awk "BEGIN {printf \"%.1f\", ($overlap / $sum) * 100}")
     perc="${perc}%"
-    echo -e "$curr_range\t$tumor\t$overlap\t$perc" >> $COUNTS_OUT
+    echo -e "$SAMPLE\t$curr_range\t$tumor\t$overlap\t$perc" >> $COUNTS_OUT
+    echo -e "$SAMPLE\t$curr_range\t$tumor\t$overlap\t$perc" >> $COMBO_OUT
 done
